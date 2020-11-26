@@ -21,7 +21,7 @@ import datos.ConexionSqlLite;
 
 public class MainActivity extends AppCompatActivity {
 
-//RAMA ISAIAS
+//RAMA RICARDO
     private Button btnMostrar;
     private TextView tvIntegrantes;
 
