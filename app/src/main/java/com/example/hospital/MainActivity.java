@@ -3,6 +3,7 @@ package com.example.hospital;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -132,15 +133,15 @@ public class MainActivity extends AppCompatActivity {
                 .getPreguntaSeguridad() + "','" + usuarioAdmin.getEdad() + "','" +
                 usuarioAdmin.getJvmp() + "','" + usuarioAdmin.getRol() + "','" + usuarioAdmin.getEmail() + "','" + usuarioAdmin.getTelefono() + "'   )";
 
-        String guardarHabitacion = "insert into " + objConexion.tblHabitacion + " (idHabitacion,totalCamas,camasDisponibles,tipo,equipamiento ) values " +
-                "('" + habitacion.getIdHabitacion() + "','" + habitacion.getTotalCamas() + "','" + habitacion.getCamasDisponbibles() + "' ,'" + habitacion.getTipo() + "','" + habitacion.getEquipamiento() + "')";
+        String guardarHabitacion = "insert into " + objConexion.tblHabitacion + " (totalCamas,camasDisponibles,tipo,equipamiento ) values " +
+                "('" + habitacion.getTotalCamas() + "','" + habitacion.getCamasDisponbibles() + "' ,'" + habitacion.getTipo() + "','" + habitacion.getEquipamiento() + "')";
 
         String guardarPaciente = "insert into " + objConexion.tblPaciente + " (nombres,apellidos,duiPaciente,edad,telefono,aseguradora,idHabitacion,usaCama,duiResponsable,telefonoResponsable ) values " +
                 "('" + paciente.getNombres() + "','" + paciente.getApellidos() + "','" + paciente.getDuiPaciente() + "' ,'" + paciente.getEdad() + "','" + paciente
                 .getTelefono() + "','"+paciente.getAseguradora()+"','"+paciente.getIdHabitacion()+"','"+paciente.getUsaCama()+"','"+paciente.getDuiResponsable()+"','"+paciente.getTelefonoResponsable()+"')";
 
-        String guardarExpediente = "insert into " + objConexion.tblExpediente + " (idExpediente,idPaciente,idEnfermera,idDoctor,fechaAlta,resumenClinico,indicaciones,medicamentos ) values " +
-                "('" + expediente.getIdExpediente() + "','" + expediente.getIdPaciente() + "','" + expediente.getIdEnfermera() + "' ,'" + expediente.getIdDoctor() + "','" + expediente.
+        String guardarExpediente = "insert into " + objConexion.tblExpediente + " (idPaciente,idEnfermera,idDoctor,fechaAlta,resumenClinico,indicaciones,medicamentos ) values " +
+                "('" + expediente.getIdPaciente() + "','" + expediente.getIdEnfermera() + "' ,'" + expediente.getIdDoctor() + "','" + expediente.
                 getFechaAlta()+ "','"+expediente.getResumenClinico()+"','"+expediente.getIndicaciones()+"','"+expediente.getMedicamentos()+"');";
 
 
@@ -167,7 +168,8 @@ public class MainActivity extends AppCompatActivity {
         btnMostrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mostrarRegistrosUsuarios();
+                Intent Open = new Intent(getApplicationContext(), IngresarPaciente.class);
+                startActivity(Open);
             }
         });
 
