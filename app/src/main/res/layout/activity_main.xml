@@ -6,24 +6,109 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/edtIntegrantes"
-        android:layout_marginTop="200dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="MOSTRAR"
-        android:id="@+id/btnMostrar"
-        >
+        android:orientation="vertical">
 
-    </Button>
+        <Button
+            android:id="@+id/btnMostrar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MOSTRAR">
+
+        </Button>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="INICIAR SESION"
+            android:textSize="20dp"
+            android:textStyle="bold">
+
+        </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
+            android:text="Ingrese su email"
+            android:id="@+id/emailError"
+
+            >
+
+        </TextView>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="email"
+            android:inputType="textEmailAddress"
+            android:id="@+id/ediUsuario"
+
+            >
+
+
+        </EditText>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
+            android:text="Ingrese su contraseña"
+            android:id="@+id/passwordError"
+
+            >
+
+        </TextView>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="contraseña"
+            android:inputType="textPassword"
+            android:id="@+id/edtPassword"
+            >
+
+        </EditText>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Entrar"
+            android:id="@+id/btnIniciar"
+            >
+
+        </Button>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No tienes cuenta aun ?"
+            android:textStyle="bold"
+            android:layout_marginTop="30dp"
+            >
+
+        </TextView>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:text="Registrarte"
+            android:id="@+id/btnRegistrar"
+            >
+
+        </Button>
+
+
+
+
+    </LinearLayout>
 
 </RelativeLayout>

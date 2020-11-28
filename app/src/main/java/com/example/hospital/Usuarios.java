@@ -112,6 +112,19 @@ class Usuarios {
         return telefono;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "Usuarios{" +
+                "idUsuario=" + idUsuario +
+                ", nombres='" + nombres + '\'' +
+                ", apellidos='" + apellidos + '\'' +
+                ", password='" + password + '\'' +
+                ", preguntaSeguridad='" + preguntaSeguridad + '\'' +
+                ", edad=" + edad +
+                ", jvmp=" + jvmp +
+                ", rol=" + rol +
+                ", email='" + email + '\'' +
+                ", telefono=" + telefono +
+                '}';
+    }
 }
