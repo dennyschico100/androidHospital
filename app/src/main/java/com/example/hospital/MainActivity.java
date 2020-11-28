@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
 
         //ROLES 1=doctor,   2=enfermera,  3 =administrador
         usuarioDoctor = new Usuarios(
-                "jose",
-                "perez",
+                "Nestor",
+                "Ayala",
                 "1234",
                 "hoy",
                 39,
@@ -169,7 +169,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent Open = new Intent(getApplicationContext(), IngresarPaciente.class);
-                startActivity(Open);
+                Intent Open2 = new Intent(getApplicationContext(), PersonalMedico.class);
+                startActivity(Open2);
             }
         });
 
@@ -186,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
         String consulta = "SELECT *FROM usuarios";
         Cursor datos = objBase.rawQuery(consulta, null);
 
-        while (datos.moveToNext()) {
+        /*while (datos.moveToNext()) {
 
             users = new Usuarios();
 
@@ -210,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        String cadena = "";
+        String cadena = "";*/
 
 
 
