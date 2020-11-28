@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -18,13 +19,14 @@ import java.util.List;
 
 import datos.ConexionSqlLite;
 
-public class PersonalMedico extends AppCompatActivity
+public class PersonalMedico extends AppCompatActivity implements RecyclerViewInterface
 {
     private RecyclerView RecyclerDocs;
     private PersonalMedicoRecycler AdaptadorMedicos;
     private TextView DocsDisponibles;
     private EditText BuscarText;
     private Button BuscarMed;
+    private List<Usuarios> Doctores = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -49,7 +51,7 @@ public class PersonalMedico extends AppCompatActivity
 
         RecyclerDocs = findViewById(R.id.RecyclerDocs);
         RecyclerDocs.setLayoutManager(new LinearLayoutManager(this));
-        AdaptadorMedicos = new PersonalMedicoRecycler(GetDocs());
+        AdaptadorMedicos = new PersonalMedicoRecycler(GetDocs(), this);
         RecyclerDocs.setAdapter(AdaptadorMedicos);
 
 
@@ -60,27 +62,7 @@ public class PersonalMedico extends AppCompatActivity
             {
                 if(Validar())
                 {
-                    String sql="select * from usuarios where nombres like '%"+BuscarText.getText().toString()+"%'";
-                    Cursor Consulta = objBase.rawQuery(sql, null);
-                    List<Usuarios> DoctoresB = new ArrayList<>();
-
-                    while(Consulta.moveToNext())
-                    {
-                        DoctoresB.add(new Usuarios(Consulta.getString(1) , Consulta.getString(2),
-                                Consulta.getString(3), Consulta.getString(4) , Consulta.getInt(5),
-                                Consulta.getInt(6), Consulta.getInt(7), Consulta.getString(8), Consulta.getInt(9)));
-                    }
-                    AdaptadorMedicos = new PersonalMedicoRecycler(DoctoresB);
-                    RecyclerDocs.setAdapter(AdaptadorMedicos);
-
-
-                    String CantBusqueda = "Select count(*) from usuarios where rol = 1 and nombres like '%"+BuscarText.getText().toString()+"%'";
-                    Cursor CantDocs = objBase.rawQuery(CantBusqueda, null);
-
-                    if(CantDocs.moveToNext())
-                    {
-                        DocsDisponibles.setText("Resulado de la busqueda: " +CantDocs.getInt(0));
-                    }
+                    CargarBusqueda();
                 }
                 else
                 {
@@ -91,11 +73,36 @@ public class PersonalMedico extends AppCompatActivity
 
     }
 
+    public void CargarBusqueda()
+    {
+        ConexionSqlLite objConexion = new ConexionSqlLite(getApplicationContext());
+        final SQLiteDatabase objBase = objConexion.getWritableDatabase();
+        String sql="select * from usuarios where nombres like '%"+BuscarText.getText().toString()+"%'";
+        Cursor Consulta = objBase.rawQuery(sql, null);
+        List<Usuarios> DoctoresB = new ArrayList<>();
+
+        while(Consulta.moveToNext())
+        {
+            DoctoresB.add(new Usuarios(Consulta.getString(1) , Consulta.getString(2),
+                    Consulta.getString(3), Consulta.getString(4) , Consulta.getInt(5),
+                    Consulta.getInt(6), Consulta.getInt(7), Consulta.getString(8), Consulta.getInt(9)));
+        }
+        AdaptadorMedicos = new PersonalMedicoRecycler(DoctoresB, this );
+        RecyclerDocs.setAdapter(AdaptadorMedicos);
+
+        String CantBusqueda = "Select count(*) from usuarios where rol = 1 and nombres like '%"+BuscarText.getText().toString()+"%'";
+        Cursor CantDocs = objBase.rawQuery(CantBusqueda, null);
+
+        if(CantDocs.moveToNext())
+        {
+            DocsDisponibles.setText("Resulado de la busqueda: " +CantDocs.getInt(0));
+        }
+    }
+
     public List<Usuarios> GetDocs()
     {
         ConexionSqlLite objConexion = new ConexionSqlLite(getApplicationContext());
         final SQLiteDatabase objBase = objConexion.getWritableDatabase();
-        List<Usuarios> Doctores = new ArrayList<>();
 
         String ConsultarDocs = "SELECT * FROM usuarios where rol = 1";
         Cursor Consulta = objBase.rawQuery(ConsultarDocs, null);
@@ -119,5 +126,21 @@ public class PersonalMedico extends AppCompatActivity
         {
             return false;
         }
+    }
+
+    @Override
+    public void OnItemClick(int position)
+    {
+        Intent SelectMed = new Intent(getApplicationContext(), SeleccionarMedico.class);
+        SelectMed.putExtra("DoctorSelecionado" , Doctores.get(position).getNombres() +" " +Doctores.get(position).getApellidos());
+        SelectMed.putExtra("JVPM", Doctores.get(position).getEmail());
+        SelectMed.putExtra("Telefono" , Doctores.get(position).getTelefono());
+        startActivity(SelectMed);
+    }
+
+    @Override
+    public void OnLongItemClick(int position)
+    {
+
     }
 }

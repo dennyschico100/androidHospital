@@ -15,7 +15,9 @@ import datos.ConexionSqlLite;
 
 public class PersonalMedicoRecycler extends RecyclerView.Adapter<PersonalMedicoRecycler.ViewHolder>
 {
-    public static class ViewHolder extends RecyclerView.ViewHolder
+    private RecyclerViewInterface recyclerViewInterface;
+
+    public class ViewHolder extends RecyclerView.ViewHolder
     {
         private TextView NombreDr, Especialidad, NumeroT;
 
@@ -25,14 +27,34 @@ public class PersonalMedicoRecycler extends RecyclerView.Adapter<PersonalMedicoR
             NombreDr = itemView.findViewById(R.id.NombreDr);
             Especialidad = itemView.findViewById(R.id.Especialidad);
             NumeroT = itemView.findViewById(R.id.NumeroT);
+
+            itemView.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View view)
+                {
+                    recyclerViewInterface.OnItemClick(getAdapterPosition());
+                }
+            });
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener()
+            {
+                @Override
+                public boolean onLongClick(View view)
+                {
+                    recyclerViewInterface.OnLongItemClick(getAdapterPosition());
+                    return true;
+                }
+            });
         }
     }
 
     public List<Usuarios> ListaDoctoresLibres;
 
-    public PersonalMedicoRecycler(List<Usuarios> ListaDoctoresLibres)
+    public PersonalMedicoRecycler(List<Usuarios> ListaDoctoresLibres, RecyclerViewInterface recyclerViewInterface)
     {
         this.ListaDoctoresLibres = ListaDoctoresLibres;
+        this.recyclerViewInterface = recyclerViewInterface;
     }
 
     public ViewHolder onCreateViewHolder(ViewGroup parent, int ViewType)
