@@ -39,7 +39,7 @@ public class PersonalMedico extends AppCompatActivity implements RecyclerViewInt
         ConexionSqlLite objConexion = new ConexionSqlLite(getApplicationContext());
         final SQLiteDatabase objBase = objConexion.getWritableDatabase();
 
-        String CantDocsSQL = "SELECT COUNT(*) FROM usuarios where rol = 1";
+        String CantDocsSQL = "SELECT COUNT(*) FROM usuarios where rol = 1 or rol = 2";
         Cursor CantDocs = objBase.rawQuery(CantDocsSQL, null);
 
         if(CantDocs.moveToNext())
@@ -137,6 +137,8 @@ public class PersonalMedico extends AppCompatActivity implements RecyclerViewInt
         SelectMed.putExtra("Telefono" , Doctores.get(position).getTelefono());
         SelectMed.putExtra("JVPM", Doctores.get(position).getJvmp());
         SelectMed.putExtra("Edad", Doctores.get(position).getEdad());
+        SelectMed.putExtra("Rol" , Doctores.get(position).getRol());
+        SelectMed.putExtra("IDdoctor", Doctores.get(position).getIdUsuario());
         startActivity(SelectMed);
     }
 
