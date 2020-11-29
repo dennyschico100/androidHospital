@@ -13,10 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import datos.ConexionSqlLite;
 
 public class PersonalMedico extends AppCompatActivity implements RecyclerViewInterface
@@ -46,7 +44,7 @@ public class PersonalMedico extends AppCompatActivity implements RecyclerViewInt
 
         if(CantDocs.moveToNext())
         {
-            DocsDisponibles.setText("Doctores disponibles: " +CantDocs.getInt(0));
+            DocsDisponibles.setText("Personal médico disponible: " +CantDocs.getInt(0));
         }
 
         RecyclerDocs = findViewById(R.id.RecyclerDocs);
@@ -77,7 +75,8 @@ public class PersonalMedico extends AppCompatActivity implements RecyclerViewInt
     {
         ConexionSqlLite objConexion = new ConexionSqlLite(getApplicationContext());
         final SQLiteDatabase objBase = objConexion.getWritableDatabase();
-        String sql="select * from usuarios where nombres like '%"+BuscarText.getText().toString()+"%'";
+
+        String sql="select * from usuarios where nombres || ' ' || apellidos = '"+BuscarText.getText().toString()+"'";
         Cursor Consulta = objBase.rawQuery(sql, null);
         List<Usuarios> DoctoresB = new ArrayList<>();
 
@@ -87,16 +86,17 @@ public class PersonalMedico extends AppCompatActivity implements RecyclerViewInt
                     Consulta.getString(3), Consulta.getString(4) , Consulta.getInt(5),
                     Consulta.getInt(6), Consulta.getInt(7), Consulta.getString(8), Consulta.getInt(9)));
         }
-        AdaptadorMedicos = new PersonalMedicoRecycler(DoctoresB, this );
-        RecyclerDocs.setAdapter(AdaptadorMedicos);
 
-        String CantBusqueda = "Select count(*) from usuarios where rol = 1 and nombres like '%"+BuscarText.getText().toString()+"%'";
+        String CantBusqueda = "select count(*) from usuarios where nombres || ' ' || apellidos = '"+BuscarText.getText().toString()+"'";
         Cursor CantDocs = objBase.rawQuery(CantBusqueda, null);
 
         if(CantDocs.moveToNext())
         {
             DocsDisponibles.setText("Resulado de la busqueda: " +CantDocs.getInt(0));
         }
+
+        AdaptadorMedicos = new PersonalMedicoRecycler(DoctoresB, this );
+        RecyclerDocs.setAdapter(AdaptadorMedicos);
     }
 
     public List<Usuarios> GetDocs()
@@ -104,7 +104,7 @@ public class PersonalMedico extends AppCompatActivity implements RecyclerViewInt
         ConexionSqlLite objConexion = new ConexionSqlLite(getApplicationContext());
         final SQLiteDatabase objBase = objConexion.getWritableDatabase();
 
-        String ConsultarDocs = "SELECT * FROM usuarios where rol = 1";
+        String ConsultarDocs = "SELECT * FROM usuarios where rol = 1 or rol = 2";
         Cursor Consulta = objBase.rawQuery(ConsultarDocs, null);
 
         while (Consulta.moveToNext())

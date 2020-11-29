@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +21,7 @@ public class PersonalMedicoRecycler extends RecyclerView.Adapter<PersonalMedicoR
     public class ViewHolder extends RecyclerView.ViewHolder
     {
         private TextView NombreDr, Especialidad, NumeroT;
+        private ImageView imageView;
 
         public ViewHolder(View itemView)
         {
@@ -27,6 +29,7 @@ public class PersonalMedicoRecycler extends RecyclerView.Adapter<PersonalMedicoR
             NombreDr = itemView.findViewById(R.id.NombreDr);
             Especialidad = itemView.findViewById(R.id.Especialidad);
             NumeroT = itemView.findViewById(R.id.NumeroT);
+            imageView = itemView.findViewById(R.id.imageView);
 
             itemView.setOnClickListener(new View.OnClickListener()
             {
@@ -69,6 +72,11 @@ public class PersonalMedicoRecycler extends RecyclerView.Adapter<PersonalMedicoR
         holder.NombreDr.setText(ListaDoctoresLibres.get(position).getNombres() +" " +ListaDoctoresLibres.get(position).getApellidos());
         holder.Especialidad.setText("JVPM: " +ListaDoctoresLibres.get(position).getJvmp());
         holder.NumeroT.setText("Telefono:" +ListaDoctoresLibres.get(position).getTelefono());
+
+        if(ListaDoctoresLibres.get(position).getRol() == 2)
+        {
+            holder.imageView.setImageResource(R.drawable.recursos13);
+        }
     }
 
     @Override

@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
 
         //ROLES 1=doctor,   2=enfermera,  3 =administrador
         usuarioDoctor = new Usuarios(
-                "Nestor",
-                "Ayala",
+                "Chepe",
+                "Kamilo",
                 "1234",
                 "hoy",
                 39,
