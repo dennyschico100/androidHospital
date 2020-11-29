@@ -4,12 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import datos.ConexionSqlLite;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -23,15 +25,27 @@ public class PacientesAdministracion_i extends AppCompatActivity {
     private ArrayList<Paciente> listaPacientes;
     private ListView lvPacientes;
     private EditText edtBuscar;
+    ArrayList idPacientes=new ArrayList();
+    Intent ig;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pacientes_administracion_i);
+        ig=new Intent(this, EditarPaciente_I.class);
         llenarLista();
         Adaptador ad=new Adaptador(this);
         lvPacientes=(ListView) findViewById(R.id.lvListaPacientes);
         edtBuscar = (EditText)  findViewById(R.id.edtBuscar);
         lvPacientes.setAdapter(ad);
+        lvPacientes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(PacientesAdministracion_i.this, "ID: "+idPacientes.get(i), Toast.LENGTH_SHORT).show();
+                ig.putExtra("id",Integer.parseInt(idPacientes.get(i).toString()));
+                startActivity(ig);
+            }
+        });
     }
     class Adaptador extends ArrayAdapter<Paciente> {
         AppCompatActivity appCompatActivity;
@@ -56,11 +70,13 @@ public class PacientesAdministracion_i extends AppCompatActivity {
         }
     }
     public void llenarLista() {
+        idPacientes.clear();
         listaPacientes = new ArrayList<Paciente>();
         String sql="SELECT * FROM paciente";
         Cursor datos = getConexion().rawQuery(sql, null);
         while(datos.moveToNext())
         {
+            idPacientes.add(datos.getInt(0));
             addListItem(datos);
         }
     }
@@ -88,17 +104,21 @@ public class PacientesAdministracion_i extends AppCompatActivity {
                 datos.getString(10)));
     }
     public void buscar(View v){
+
         if(validar()){
+            idPacientes.clear();
             String sql="select * from paciente where nombres like '%"+edtBuscar.getText().toString()+"%'";
 
             Cursor datos = getConexion().rawQuery(sql, null);
             int cont=0;
             if(datos.moveToNext())
             {
+                idPacientes.add(datos.getInt(0));
                 listaPacientes=new ArrayList<>();
                 cont++;
                 addListItem(datos);
                 while (datos.moveToNext()){
+                    idPacientes.add(datos.getInt(0));
                     addListItem(datos);
                     cont++;
                 }
