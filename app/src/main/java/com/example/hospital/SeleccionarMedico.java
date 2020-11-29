@@ -1,6 +1,7 @@
 package com.example.hospital;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.widget.TextView;
@@ -8,7 +9,7 @@ import android.widget.TextView;
 public class SeleccionarMedico extends AppCompatActivity
 {
     Bundle RecibirData;
-    private TextView NombreDr2, EspecialidadDR2, JVPM2, EdadDR, TelefonoSelectDr;
+    private TextView NombreDr2, EspecialidadDR2, CodigoJVPM, EdadDR, TelefonoSelectDr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -17,7 +18,7 @@ public class SeleccionarMedico extends AppCompatActivity
         setContentView(R.layout.activity_seleccionar_medico);
         NombreDr2 = findViewById(R.id.NombreDr2);
         EspecialidadDR2 = findViewById(R.id.EspecialidadDR2);
-        JVPM2 = findViewById(R.id.JVPM2);
+        CodigoJVPM = findViewById(R.id.CodigoJVPM);
         TelefonoSelectDr = findViewById(R.id.TelefonoSelectDr);
         EdadDR = findViewById(R.id.EdadDR);
 
@@ -25,11 +26,14 @@ public class SeleccionarMedico extends AppCompatActivity
 
         String NombreIntenr = RecibirData.getString("DoctorSelecionado");
         String Correo = RecibirData.getString("Correo");
+        int JVPMDoc = RecibirData.getInt("JVPM");
+        int Telefono = RecibirData.getInt("Telefono");
+        int Edad = RecibirData.getInt("Edad");
 
-        NombreDr2.setText(NombreIntenr);
-        EspecialidadDR2.setText(Correo);
-        JVPM2.setText(RecibirData.getString("JVPM"));
-        TelefonoSelectDr.setText(RecibirData.getString("Telefono"));
-        EdadDR.setText(RecibirData.getString("Edad"));
+        NombreDr2.setText("Dr." +NombreIntenr);
+        EspecialidadDR2.setText("Correo: " +Correo);
+        CodigoJVPM.setText("JVPM: " +JVPMDoc);
+        TelefonoSelectDr.setText("Telefono: " +Telefono);
+        EdadDR.setText("Edad: " +Edad +" años");
     }
 }
