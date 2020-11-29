@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
 
         //ROLES 1=doctor,   2=enfermera,  3 =administrador
         usuarioDoctor = new Usuarios(
-                "Chepe",
-                "Kamilo",
+                "Ricardo",
+                "Elias",
                 "1234",
                 "hoy",
                 39,
@@ -55,8 +55,8 @@ public class MainActivity extends AppCompatActivity {
 
         );
         usuarioEnfermera = new Usuarios(
-                "maria",
-                "lopez",
+                "Sandra",
+                "Saravia",
                 "12345",
                 "fresa",
                 19,
@@ -91,8 +91,8 @@ public class MainActivity extends AppCompatActivity {
 
         //usaCama 1 = SI , 2 = NO
         paciente = new Paciente(
-                "pacienteUno",
-                "ApellidoPacinteUno",
+                "Alcira",
+                "Carmona",
                 "05383983-2",
                 20,
                 7367819,

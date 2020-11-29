@@ -24,7 +24,7 @@ public class PersonalMedico extends AppCompatActivity implements RecyclerViewInt
     private TextView DocsDisponibles;
     private EditText BuscarText;
     private Button BuscarMed;
-    private List<Usuarios> Doctores = new ArrayList<>();
+    private List<csUsuariosID> Doctores = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -78,11 +78,11 @@ public class PersonalMedico extends AppCompatActivity implements RecyclerViewInt
 
         String sql="select * from usuarios where nombres || ' ' || apellidos = '"+BuscarText.getText().toString()+"'";
         Cursor Consulta = objBase.rawQuery(sql, null);
-        List<Usuarios> DoctoresB = new ArrayList<>();
+        List<csUsuariosID> DoctoresB = new ArrayList<>();
 
         while(Consulta.moveToNext())
         {
-            DoctoresB.add(new Usuarios(Consulta.getString(1) , Consulta.getString(2),
+            DoctoresB.add(new csUsuariosID(Consulta.getInt(0), Consulta.getString(1) , Consulta.getString(2),
                     Consulta.getString(3), Consulta.getString(4) , Consulta.getInt(5),
                     Consulta.getInt(6), Consulta.getInt(7), Consulta.getString(8), Consulta.getInt(9)));
         }
@@ -99,7 +99,7 @@ public class PersonalMedico extends AppCompatActivity implements RecyclerViewInt
         RecyclerDocs.setAdapter(AdaptadorMedicos);
     }
 
-    public List<Usuarios> GetDocs()
+    public List<csUsuariosID> GetDocs()
     {
         ConexionSqlLite objConexion = new ConexionSqlLite(getApplicationContext());
         final SQLiteDatabase objBase = objConexion.getWritableDatabase();
@@ -109,10 +109,11 @@ public class PersonalMedico extends AppCompatActivity implements RecyclerViewInt
 
         while (Consulta.moveToNext())
         {
-            Doctores.add(new Usuarios(Consulta.getString(1) , Consulta.getString(2),
+            Doctores.add(new csUsuariosID(Consulta.getInt(0), Consulta.getString(1) , Consulta.getString(2),
                     Consulta.getString(3), Consulta.getString(4) , Consulta.getInt(5),
                     Consulta.getInt(6), Consulta.getInt(7), Consulta.getString(8), Consulta.getInt(9)));
         }
+
         return Doctores;
     }
 

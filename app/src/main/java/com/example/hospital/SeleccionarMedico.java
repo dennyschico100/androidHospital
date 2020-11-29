@@ -62,7 +62,6 @@ public class SeleccionarMedico extends AppCompatActivity
         TelefonoSelectDr.setText("Telefono: " +Telefono);
         EdadDR.setText("Edad: " +Edad +" años");
 
-
         if(RolProf == 2)
         {
             NombreDr2.setText("Srta. " +NombreIntenr);

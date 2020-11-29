@@ -1,7 +1,5 @@
 package com.example.hospital;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +9,6 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
-
-import datos.ConexionSqlLite;
 
 public class PersonalMedicoRecycler extends RecyclerView.Adapter<PersonalMedicoRecycler.ViewHolder>
 {
@@ -52,9 +48,9 @@ public class PersonalMedicoRecycler extends RecyclerView.Adapter<PersonalMedicoR
         }
     }
 
-    public List<Usuarios> ListaDoctoresLibres;
+    public List<csUsuariosID> ListaDoctoresLibres;
 
-    public PersonalMedicoRecycler(List<Usuarios> ListaDoctoresLibres, RecyclerViewInterface recyclerViewInterface)
+    public PersonalMedicoRecycler(List<csUsuariosID> ListaDoctoresLibres, RecyclerViewInterface recyclerViewInterface)
     {
         this.ListaDoctoresLibres = ListaDoctoresLibres;
         this.recyclerViewInterface = recyclerViewInterface;
