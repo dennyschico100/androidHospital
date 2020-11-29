@@ -62,11 +62,17 @@ public class PacientesDoctores extends AppCompatActivity {
             TextView textView1 =item.findViewById(R.id.txtNombreLista);
             TextView descripcion = item.findViewById(R.id.tvDescripcion);
             ImageView imageView1 =item.findViewById(R.id.img);
+            if(listaPacientes.get(position).getUsaCama()==3)
+            {
+                textView1.setText(listaPacientes.get(position).getNombres() +" "+listaPacientes.get(position).getApellidos());
+                descripcion.setText("PACIENTE DE ALTA");
+                imageView1.setImageResource(R.drawable.recursos20);
+            }else{
                 textView1.setText(listaPacientes.get(position).getNombres() +" "+listaPacientes.get(position).getApellidos());
                 descripcion.setText("DUI:"+listaPacientes.get(position).getDuiPaciente()+"\nEdad:"
                         +listaPacientes.get(position).getEdad()+"\nHabitacion:"+listaPacientes.get(position).getIdHabitacion());
                 imageView1.setImageResource(R.drawable.recursos20);
-
+            }
             return (item);
         }
     }

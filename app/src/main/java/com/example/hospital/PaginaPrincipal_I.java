@@ -3,9 +3,11 @@ package com.example.hospital;
 import androidx.appcompat.app.AppCompatActivity;
 import datos.ConexionSqlLite;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import java.util.Calendar;
@@ -27,7 +29,11 @@ public class PaginaPrincipal_I extends AppCompatActivity {
 
 
     }
-
+    public void irPacientes(View v)
+    {
+        Intent i=new Intent(this, PacientesDoctores.class);
+        startActivity(i);
+    }
     public void getDatosInicio()
     {
         String consulta = "select * from habitaciones";

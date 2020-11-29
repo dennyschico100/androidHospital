@@ -3,6 +3,8 @@ package com.example.hospital;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import com.example.hospital.PaginaPrincipal_I;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -13,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -90,8 +93,8 @@ public class MainActivity extends AppCompatActivity {
 
         //usaCama 1 = SI , 2 = NO
         paciente = new Paciente(
-                "pacienteUno",
-                "ApellidoPacinteUno",
+                "juan",
+                "pachuca",
                 "05383983-2",
                 20,
                 7367819,
@@ -148,13 +151,9 @@ public class MainActivity extends AppCompatActivity {
         Log.i("Query2 : ", guardarEnfermera);
         Log.i("Query3: ", guardarAdmin);
 
-        objBase.execSQL(guardarDoctor);
-        objBase.execSQL(guardarEnfermera);
-        objBase.execSQL(guardarAdmin);
 
-        objBase.execSQL(guardarHabitacion);
-        objBase.execSQL(guardarPaciente);
-        objBase.execSQL(guardarExpediente);
+
+
 
 
 
@@ -164,10 +163,13 @@ public class MainActivity extends AppCompatActivity {
         Log.i("Mensaje Insert :", "USUARIOS INSERTADOS EN LA TABLA ");
 
         //mostrarRegistroAlumno();
+        final Intent in =new Intent(this, PaginaPrincipal_I.class);
         btnMostrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mostrarRegistrosUsuarios();
+
+                startActivity(in);
             }
         });
 

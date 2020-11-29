@@ -90,6 +90,17 @@ public class EditarPaciente_I extends AppCompatActivity {
 
 
     }
+    public void darAlta(View v)
+    {
+        String sql="UPDATE paciente SET " +
+                "usaCama=3 WHERE idPaciente="+ps.getIdPaciente()+"";
+        try {
+            getConexion().execSQL(sql);
+            Toast.makeText(this, "Paciente dado de alta", Toast.LENGTH_SHORT).show();
+        }catch (Exception e){
+            Toast.makeText(this, "Algo fallo en la transaccion", Toast.LENGTH_SHORT).show();
+        }
+    }
     private SQLiteDatabase getConexion()
     {
         ConexionSqlLite objConexion = new ConexionSqlLite(getApplicationContext());
