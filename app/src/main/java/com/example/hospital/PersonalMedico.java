@@ -133,8 +133,10 @@ public class PersonalMedico extends AppCompatActivity implements RecyclerViewInt
     {
         Intent SelectMed = new Intent(getApplicationContext(), SeleccionarMedico.class);
         SelectMed.putExtra("DoctorSelecionado" , Doctores.get(position).getNombres() +" " +Doctores.get(position).getApellidos());
-        SelectMed.putExtra("JVPM", Doctores.get(position).getEmail());
+        SelectMed.putExtra("Correo", Doctores.get(position).getEmail());
         SelectMed.putExtra("Telefono" , Doctores.get(position).getTelefono());
+        SelectMed.putExtra("JVPM", Doctores.get(position).getJvmp());
+        SelectMed.putExtra("Edad", Doctores.get(position).getEdad());
         startActivity(SelectMed);
     }
 
