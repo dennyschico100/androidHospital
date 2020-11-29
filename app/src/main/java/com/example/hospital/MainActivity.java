@@ -149,13 +149,13 @@ public class MainActivity extends AppCompatActivity {
         Log.i("Query2 : ", guardarEnfermera);
         Log.i("Query3: ", guardarAdmin);
 
-        objBase.execSQL(guardarDoctor);
-        objBase.execSQL(guardarEnfermera);
-        objBase.execSQL(guardarAdmin);
+        //objBase.execSQL(guardarDoctor);
+        //objBase.execSQL(guardarEnfermera);
+        //objBase.execSQL(guardarAdmin);
 
-        objBase.execSQL(guardarHabitacion);
-        objBase.execSQL(guardarPaciente);
-        objBase.execSQL(guardarExpediente);
+        //objBase.execSQL(guardarHabitacion);
+        //objBase.execSQL(guardarPaciente);
+        //objBase.execSQL(guardarExpediente);
 
 
 
@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent Open = new Intent(getApplicationContext(), IngresarPaciente.class);
                 Intent Open2 = new Intent(getApplicationContext(), PersonalMedico.class);
-                startActivity(Open2);
+                startActivity(Open);
             }
         });
 
