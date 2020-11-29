@@ -68,11 +68,11 @@ public class IngresarPaciente extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                if(!NombrePaciente.getText().toString().isEmpty() && !ApellidoPacient.getText().toString().isEmpty() && !DUI.getText().toString().isEmpty() && !Telefono.getText().toString().isEmpty() && !Edad.getText().toString().isEmpty() && !Responsable.getText().toString().isEmpty() && !DUIRes.getText().toString().isEmpty() && !TelefonoRes.getText().toString().isEmpty() && !MotivoConsulta.getText().toString().isEmpty())
+                if(!Validar())
                 {
                     String IngresarPaciente = "insert into paciente (nombres,apellidos,duiPaciente,edad,telefono,aseguradora,idHabitacion,usaCama,duiResponsable,telefonoResponsable ) values " +
                             "('" +NombrePaciente.getText().toString() + "','" + ApellidoPacient.getText().toString() + "','" + DUI.getText().toString() + "' ,'" + Edad.getText().toString() + "','" + Telefono.getText().toString() + "','"+SelecAseguradora+"', 1, 1,'"+Responsable.getText().toString()+"','"+TelefonoRes.getText().toString()+"')";
-                    objBase.execSQL(IngresarPaciente);
+                    //objBase.execSQL(IngresarPaciente);
 
                     String ConsultarIdPaci = "select idPaciente from paciente where duiPaciente = '"+DUI.getText().toString()+"'" ;
                     Cursor IDPaciente = objBase.rawQuery(ConsultarIdPaci, null);
@@ -120,7 +120,7 @@ public class IngresarPaciente extends AppCompatActivity
 
                 if(ListaDR.contains(SelectMed))
                 {
-                    IDoc = ListaDR.get(0);
+
                 }
             }
             @Override
@@ -137,6 +137,18 @@ public class IngresarPaciente extends AppCompatActivity
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) { }
         });
+    }
+
+    public boolean Validar()
+    {
+        if(!NombrePaciente.getText().toString().isEmpty() && !ApellidoPacient.getText().toString().isEmpty() && !DUI.getText().toString().isEmpty() && !Telefono.getText().toString().isEmpty() && !Edad.getText().toString().isEmpty() && !Responsable.getText().toString().isEmpty() && !DUIRes.getText().toString().isEmpty() && !TelefonoRes.getText().toString().isEmpty() && !MotivoConsulta.getText().toString().isEmpty())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public void Consultas()
