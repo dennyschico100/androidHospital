@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="7dp"
+        tools:context=".Registro">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Registrarse"
+                android:textSize="40dp"
+                android:textStyle="bold"
+
+                ></TextView>
+
+            <TextView
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="Hospital San Miguel Arcangel"></TextView>
+
+            <EditText
+                android:id="@+id/edtNombres"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nombres"
+                android:inputType="text">
+
+            </EditText>
+
+            <EditText
+                android:id="@+id/edtApellidos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Apellidos"
+                android:inputType="text"
+
+                >
+
+            </EditText>
+
+            <EditText
+                android:id="@+id/edtJvmp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Numepr jvmp"
+                android:inputType="text"></EditText>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Especialidad"
+                    android:textSize="20dp">
+
+                </TextView>
+
+                <Spinner
+                    android:id="@+id/spinnerEspecialidades"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="50dp"
+
+                    >
+
+                </Spinner>
+
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/edtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="Email">
+
+            </EditText>
+
+            <EditText
+                android:id="@+id/edtPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="Contraseña"
+                android:inputType="textPassword"
+
+                >
+
+            </EditText>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pregunta de seguridad"
+                    android:textSize="15dp">
+
+                </TextView>
+
+                <Spinner
+                    android:id="@+id/spinnerPregunta"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="10dp"
+
+                    >
+
+                </Spinner>
+
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/edtPregunta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="Tu respuesta"
+
+                >
+
+            </EditText>
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Edad"
+                android:id="@+id/edtEdad"
+                android:inputType="number"
+                >
+
+            </EditText>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="telefono"
+                android:inputType="phone"
+                android:id="@+id/edtTelefono"
+                >
+
+            </EditText>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Registrarse"
+                android:id="@+id/btnRegistrar"
+                >
+
+            </Button>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</ScrollView>

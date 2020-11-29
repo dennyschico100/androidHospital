@@ -1,6 +1,7 @@
 package com.example.hospital;
 
 
+import androidx.annotation.Nullable;
 
 class Usuarios {
 
@@ -15,7 +16,7 @@ class Usuarios {
     private String email;
     private int telefono;
 
-    public  Usuarios(){
+    public Usuarios() {
 
     }
 
@@ -59,7 +60,7 @@ class Usuarios {
         this.telefono = telefono;
     }
 
-    public Usuarios( String nombres, String apellidos, String password, String preguntaSeguridad, int edad, int jvmp, int rol, String email, int telefono) {
+    public Usuarios(String nombres, String apellidos, String password, String preguntaSeguridad, int edad, @Nullable int jvmp, int rol, String email, int telefono) {
 
         this.nombres = nombres;
         this.apellidos = apellidos;
@@ -70,6 +71,8 @@ class Usuarios {
         this.rol = rol;
         this.email = email;
         this.telefono = telefono;
+
+
     }
 
     public int getIdUsuario() {
