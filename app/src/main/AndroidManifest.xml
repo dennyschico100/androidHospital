@@ -9,7 +9,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".DarAltadelPaciente"></activity>
+        <activity android:name=".EditarPaciente_I"></activity>
+        <activity android:name=".EditarperfilAdmin"></activity>
+        <activity android:name=".EditarperfilDoc"></activity>
+        <activity android:name=".IngresarPaciente"></activity>
+        <activity android:name=".PacientesAdministracion_i"></activity>
+        <activity android:name=".PacientesDoctores"></activity>
+        <activity android:name=".PaginaPrincipal_I"></activity>
+        <activity android:name=".PersonalMedico"></activity>
         <activity android:name=".Registro"></activity>
+        <activity android:name=".SeleccionarMedico"></activity>
+
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
