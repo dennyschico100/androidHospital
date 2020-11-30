@@ -20,8 +20,8 @@
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15sp"
-                android:layout_marginBottom="15sp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
                 android:gravity="center"
                 android:text="Ingresar un nuevo paciente"
                 android:textSize="18sp"
@@ -125,6 +125,44 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="Telefono"
+                    android:inputType="number" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="Signos vitales"></TextView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/TA"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="mmHg"
+                    android:inputType="text" />
+
+                <EditText
+                    android:id="@+id/FCC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="Bmp"
                     android:inputType="number" />
             </LinearLayout>
 

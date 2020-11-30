@@ -27,7 +27,7 @@ public class IngresarPaciente extends AppCompatActivity
     private TextView Habitaciones;
     private int HabDisponibles, IDPaci;
     private String SelecAseguradora, SelectEnferm, SelectMed, IDSepEn, IDSepDr;
-    private EditText NombrePaciente, ApellidoPacient, DUI, Edad, Telefono, Responsable, DUIRes, TelefonoRes, MotivoConsulta;
+    private EditText NombrePaciente, ApellidoPacient, DUI, Edad, Telefono, Responsable, DUIRes, TelefonoRes, MotivoConsulta, TA, FCC;
     String[] NombresAseg = {"ASESUISA" , "SISA" , "ISBM" , "MAPFRE" , "ACSA" , "Seguros del pacifico" , "Seguros azul" , "ASA"};
     ArrayList<String> ListaDR = new ArrayList<>();
     ArrayList<String> ListaEF = new ArrayList<>();
@@ -52,6 +52,8 @@ public class IngresarPaciente extends AppCompatActivity
         MedicosSpin = findViewById(R.id.MedicosSpin);
         Habitaciones = findViewById(R.id.Habitaciones);
         MotivoConsulta = findViewById(R.id.MotivoConsulta);
+        TA = findViewById(R.id.TA);
+        FCC = findViewById(R.id.FCC);
 
         ConexionSqlLite objConexion = new ConexionSqlLite(getApplicationContext());
         final SQLiteDatabase objBase = objConexion.getWritableDatabase();
@@ -89,8 +91,8 @@ public class IngresarPaciente extends AppCompatActivity
                         IDPaci = IDPaciente.getInt(0);
                     }
 
-                    String GuardarExpediente = "insert into expedientes (idPaciente,idEnfermera,idDoctor,resumenClinico) values " +
-                            "('" +IDPaci + "','" +IEn + "' ,'" +IDr+ "', '"+MotivoConsulta.getText().toString()+"')";
+                    String GuardarExpediente = "insert into expedientes (idPaciente,idEnfermera,idDoctor,resumenClinico, Signo_TA, Signo_FCC) values " +
+                            "('" +IDPaci + "','" +IEn + "' ,'" +IDr+ "', '"+MotivoConsulta.getText().toString()+"' , '"+TA.getText().toString()+"' , '"+FCC.getText().toString()+"')";
                     objBase.execSQL(GuardarExpediente);
 
                     int TotalHab = HabDisponibles - 1;
@@ -209,5 +211,7 @@ public class IngresarPaciente extends AppCompatActivity
         DUIRes.setText("");
         TelefonoRes.setText("");
         MotivoConsulta.setText("");
+        FCC.setText("");
+        TA.setText("");
     }
 }
