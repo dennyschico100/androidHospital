@@ -15,6 +15,9 @@ class Usuarios {
     private String email;
     private int telefono;
 
+    public  Usuarios(){
+
+    }
     public  Usuarios(String s){
 
     }
