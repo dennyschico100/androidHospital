@@ -2,7 +2,9 @@ package com.example.hospital;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,11 +16,15 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import datos.ConexionSqlLite;
+
 public class Registro extends AppCompatActivity {
 
     private ListView listaPreguntas;
     private Spinner spinnerEspecialidades, spinnerPregunta;
 
+    ConexionSqlLite objConexion;
+    SQLiteDatabase objBase;
     Usuarios usuarios;
     private Button btnRegistrarse;
     private EditText edtNombres,edtApellidos,edtEmail,edtPassword,edtJvmp,edtSeguridad,edtEdad,edtTelefono;
@@ -100,6 +106,9 @@ public class Registro extends AppCompatActivity {
                   usuarios.setJvmp(Integer.parseInt(edtJvmp.getText().toString()));
 
               }
+              objConexion = new ConexionSqlLite(getApplicationContext());
+              objBase = objConexion.getWritableDatabase();
+
               usuarios.setRol( (int) spinnerEspecialidades.getSelectedItemId() );
               usuarios.setEmail(edtEmail.getText().toString());
               usuarios.setPassword(edtPassword.getText().toString());
@@ -107,7 +116,14 @@ public class Registro extends AppCompatActivity {
               usuarios.setEdad(Integer.parseInt(edtEdad.getText().toString()));
               usuarios.setTelefono(Integer.parseInt(edtTelefono.getText().toString()));
               Toast.makeText(getApplicationContext(),""+usuarios.toString(),Toast.LENGTH_SHORT).show();
+              String guardarUsuario = "insert into " + objConexion.tblUsuarios + " (nombres, apellidos,password,preguntaSeguridad,edad,jvmp,rol,email,telefono) values " +
+                      "('" + usuarios.getNombres() + "','" + usuarios.getApellidos() + "','" + usuarios.getPassword() + "' ,'" + usuarios
+                      .getPreguntaSeguridad() + "','" + usuarios.getEdad() + "','" +
+                      usuarios.getJvmp() + "','" + usuarios.getRol() + "','" + usuarios.getEmail() + "','" + usuarios.getTelefono() + "'   )";
 
+
+              objBase.execSQL(guardarUsuario);
+              Log.i("","");
 
           }
         }

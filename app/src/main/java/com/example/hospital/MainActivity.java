@@ -305,7 +305,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         Log.i("Mensaje Insert :", "USUARIOS INSERTADOS EN LA TABLA ");
+        mostrarRegistrosUsuarios();
     }
+
 
     public void mostrarRegistrosUsuarios() {
         List<Usuarios> lista = new ArrayList<Usuarios>();
@@ -337,7 +339,7 @@ public class MainActivity extends AppCompatActivity {
         for (Usuarios u : lista) {
 
 
-            Log.i("Datos", u.getIdUsuario() + " and " + u.getPassword());
+            Log.i("Datos", u.getNombres() + " and " + u.getPassword());
 
         }
 
