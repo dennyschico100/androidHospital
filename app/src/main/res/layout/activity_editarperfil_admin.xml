@@ -72,6 +72,7 @@
             android:id="@+id/btnguardar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="guardarcambios"
             android:text="Guardar Cambios" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -27,21 +27,21 @@ public class EditarperfilDoc extends AppCompatActivity {
         setContentView(R.layout.activity_editarperfil_doc);
 
         txtperfildoc = findViewById(R.id.txtperfildoc);
-
+        tvNombre=(TextView) findViewById(R.id.tvNombre);
+        txtperfildoc=(TextView) findViewById(R.id.txtperfildoc);
         edtNombres = findViewById(R.id.edtNombres);
         edtApellidos = findViewById(R.id.edtApellidos);
         edtJVPM = findViewById(R.id.edtJVPM);
         edtEspecialidad = findViewById(R.id.edtEspecialidad);
         edtTelefono = findViewById(R.id.edtTelefono);
         btnguardar = findViewById(R.id.btnguardar);
-        tvNombre.setText("Usuarios ID: "+id);
+
 
 
         Bundle parametros = this.getIntent().getExtras();
-        //id = parametros.getInt("id");
-        id = 2;
-        us = new Usuarios();
 
+        id = parametros.getInt("id");
+        us = new Usuarios();
         us=perfilEditar();
         us.setIdUsuario(id);
 
@@ -51,7 +51,7 @@ public class EditarperfilDoc extends AppCompatActivity {
             edtJVPM.setText(us.getJvmp() +"");
             edtEspecialidad.setText(us.getRol()+"");
             edtTelefono.setText(us.getTelefono()+"");
-            tvNombre.setText("Usuarios ID: "+id);
+            tvNombre.setText("Usuarios ID: "+us.getIdUsuario()+"");
         }
 
     }
@@ -68,24 +68,25 @@ public class EditarperfilDoc extends AppCompatActivity {
                 "nombres='"+us.getNombres()+"'," +
                 "apellidos='"+us.getApellidos()+"'," +
                 "password='"+us.getPassword()+"'," +
-                "preguntaSeguridad="+us.getPreguntaSeguridad()+"," +
+                "preguntaSeguridad='"+us.getPreguntaSeguridad()+"'," +
                 "edad="+us.getEdad()+"," +
-                "jvmp='"+us.getJvmp()+"'," +
+                "jvmp="+us.getJvmp()+"," +
                 "rol="+us.getRol()+"," +
-                "email="+us.getEmail()+"," +
-                "telefono='"+us.getTelefono()+"'," +
-                "WHERE idUsuarios="+us.getIdUsuario()+"";
+                "email='"+us.getEmail()+"'," +
+                "telefono='"+us.getTelefono()+"' " +
+                "WHERE idUsuario="+us.getIdUsuario()+"";
         try {
             getConexion().execSQL(sql);
             Toast.makeText(this, "Registro guardado correctamente", Toast.LENGTH_SHORT).show();
         }catch (Exception e){
+            e.printStackTrace();
             Toast.makeText(this, "Algo fallo en la transaccion", Toast.LENGTH_SHORT).show();
         }
     }
 
     public Usuarios perfilEditar()
     {
-            String sql="SELECT * FROM Usuarios WHERE idUsuarios="+id+"";
+            String sql="SELECT * FROM Usuarios WHERE idUsuario="+id+"";
             Cursor datos = getConexion().rawQuery(sql, null);
             if(datos.moveToNext())
             {

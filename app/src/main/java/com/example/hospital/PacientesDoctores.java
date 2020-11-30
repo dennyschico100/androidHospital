@@ -26,13 +26,16 @@ public class PacientesDoctores extends AppCompatActivity {
     private ListView lvPacientes;
     private EditText edtBuscar;
     ArrayList idPacientes=new ArrayList();
+    int rol;
     Intent ig;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pacientes_doctores);
-        ig=new Intent(this, EditarPaciente_I.class);
+        ig=new Intent(this, DarAltadelPaciente.class);
         llenarLista();
+        Bundle parametros = this.getIntent().getExtras();
+        rol = parametros.getInt("rol");
         Adaptador ad=new Adaptador(this);
         lvPacientes=(ListView) findViewById(R.id.lvListaPacientes);
         edtBuscar = (EditText)  findViewById(R.id.edtBuscar);
@@ -40,9 +43,13 @@ public class PacientesDoctores extends AppCompatActivity {
         lvPacientes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(PacientesDoctores.this, "ID: "+idPacientes.get(i), Toast.LENGTH_SHORT).show();
-                ig.putExtra("id",Integer.parseInt(idPacientes.get(i).toString()));
-                startActivity(ig);
+
+                    Toast.makeText(PacientesDoctores.this, "ID: "+idPacientes.get(i), Toast.LENGTH_SHORT).show();
+                    ig.putExtra("id",Integer.parseInt(idPacientes.get(i).toString()));
+                    ig.putExtra("rol",rol);
+                    startActivity(ig);
+
+
             }
         });
 

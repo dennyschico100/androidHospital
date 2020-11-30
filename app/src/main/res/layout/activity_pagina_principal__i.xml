@@ -117,7 +117,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="0"
+                                android:text="1"
                                 android:textAlignment="center" />
                         </LinearLayout>
 
@@ -148,7 +148,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="0"
+                                android:text="3"
                                 android:textAlignment="center" />
                         </LinearLayout>
 
@@ -195,6 +195,7 @@
                                 android:layout_width="142dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:onClick="irPersonalMedico"
                                 app:srcCompat="@drawable/recursos11" />
 
                             <TextView
@@ -218,6 +219,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:onClick="irEditarPerfil"
                                 app:srcCompat="@drawable/recursos16" />
 
                             <TextView

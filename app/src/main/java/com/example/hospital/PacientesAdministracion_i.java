@@ -47,6 +47,11 @@ public class PacientesAdministracion_i extends AppCompatActivity {
             }
         });
     }
+    public void irNuevoPaciente(View v)
+    {
+        Intent i=new Intent(this, IngresarPaciente.class);
+        startActivity(i);
+    }
     class Adaptador extends ArrayAdapter<Paciente> {
         AppCompatActivity appCompatActivity;
 

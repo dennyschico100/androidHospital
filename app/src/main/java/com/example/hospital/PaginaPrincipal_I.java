@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -31,7 +32,35 @@ public class PaginaPrincipal_I extends AppCompatActivity {
     }
     public void irPacientes(View v)
     {
-        Intent i=new Intent(this, PacientesDoctores.class);
+        Bundle parametros = this.getIntent().getExtras();
+        int id = parametros.getInt("id");
+        int rol = parametros.getInt("rol");
+        System.out.println(rol);
+        Toast.makeText(this, ""+rol, Toast.LENGTH_SHORT).show();
+        if(rol==3)
+        {
+            Intent i=new Intent(this, PacientesAdministracion_i.class);
+            i.putExtra("rol",rol);
+            startActivity(i);
+        }else{
+            Intent i=new Intent(this, PacientesDoctores.class);
+            i.putExtra("rol",rol);
+            startActivity(i);
+        }
+
+    }
+    public void irPersonalMedico(View v)
+    {
+        Intent i=new Intent(this, PersonalMedico.class);
+        startActivity(i);
+    }
+    public void irEditarPerfil(View v)
+    {
+        Bundle parametros = this.getIntent().getExtras();
+        int id = parametros.getInt("id");
+        int rol = parametros.getInt("rol");
+        Intent i=new Intent(this, EditarperfilDoc.class);
+        i.putExtra("id",id);
         startActivity(i);
     }
     public void getDatosInicio()

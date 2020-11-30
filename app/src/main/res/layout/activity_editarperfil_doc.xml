@@ -77,9 +77,10 @@ tools:layout_editor_absoluteY="0dp">
             android:inputType="phone" />
 
         <Button
-    android:id="@+id/btnguardar"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="Guardar Cambios" />
+            android:id="@+id/btnguardar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="guardarcambios"
+            android:text="Guardar Cambios" />
 </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

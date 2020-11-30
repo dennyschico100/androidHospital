@@ -37,8 +37,8 @@ public class DarAltadelPaciente extends AppCompatActivity {
         indicaciones=(EditText) findViewById(R.id.edtindicaciones);
 
         Bundle parametros = this.getIntent().getExtras();
-        //id = parametros.getInt("id");
-        id = 5;
+        id = parametros.getInt("id");
+
 
         ps=pacienteEditar();
         ps.setIdPaciente(id);

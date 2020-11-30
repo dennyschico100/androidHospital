@@ -139,13 +139,6 @@
                 android:onClick="actualizar"
                 android:text="Actualizar" />
 
-            <Button
-                android:id="@+id/button4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="darAlta"
-                android:text="Dar de alta" />
-
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
