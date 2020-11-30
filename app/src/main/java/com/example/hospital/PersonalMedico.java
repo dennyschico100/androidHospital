@@ -99,24 +99,6 @@ public class PersonalMedico extends AppCompatActivity implements RecyclerViewInt
         RecyclerDocs.setAdapter(AdaptadorMedicos);
     }
 
-    public List<csUsuariosID> GetDocs()
-    {
-        ConexionSqlLite objConexion = new ConexionSqlLite(getApplicationContext());
-        final SQLiteDatabase objBase = objConexion.getWritableDatabase();
-
-        String ConsultarDocs = "SELECT * FROM usuarios where rol = 1 or rol = 2";
-        Cursor Consulta = objBase.rawQuery(ConsultarDocs, null);
-
-        while (Consulta.moveToNext())
-        {
-            Doctores.add(new csUsuariosID(Consulta.getInt(0), Consulta.getString(1) , Consulta.getString(2),
-                    Consulta.getString(3), Consulta.getString(4) , Consulta.getInt(5),
-                    Consulta.getInt(6), Consulta.getInt(7), Consulta.getString(8), Consulta.getInt(9)));
-        }
-
-        return Doctores;
-    }
-
     public boolean Validar()
     {
         if(!BuscarText.getText().toString().isEmpty())
@@ -148,4 +130,23 @@ public class PersonalMedico extends AppCompatActivity implements RecyclerViewInt
     {
 
     }
+
+    public List<csUsuariosID> GetDocs()
+    {
+        ConexionSqlLite objConexion = new ConexionSqlLite(getApplicationContext());
+        final SQLiteDatabase objBase = objConexion.getWritableDatabase();
+
+        String ConsultarDocs = "SELECT * FROM usuarios where rol = 1 or rol = 2";
+        Cursor Consulta = objBase.rawQuery(ConsultarDocs, null);
+
+        while (Consulta.moveToNext())
+        {
+            Doctores.add(new csUsuariosID(Consulta.getInt(0), Consulta.getString(1) , Consulta.getString(2),
+                    Consulta.getString(3), Consulta.getString(4) , Consulta.getInt(5),
+                    Consulta.getInt(6), Consulta.getInt(7), Consulta.getString(8), Consulta.getInt(9)));
+        }
+
+        return Doctores;
+    }
+
 }

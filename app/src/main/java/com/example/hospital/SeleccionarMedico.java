@@ -83,7 +83,7 @@ public class SeleccionarMedico extends AppCompatActivity
             }
             TotalPacientesTV.setText("Pacientes asignados: " +Tpacientes);
         }
-        else
+        else if(RolProf == 1)
         {
             String ConsultarPacientes = "select paciente.nombres, paciente.apellidos from paciente join expedientes on expedientes.idPaciente = paciente.idPaciente where expedientes.idDoctor = '"+IDDoc+"'";
             Cursor Pacientes = ObBase.rawQuery(ConsultarPacientes, null);

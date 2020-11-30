@@ -31,7 +31,6 @@ public class IngresarPaciente extends AppCompatActivity
     String[] NombresAseg = {"ASESUISA" , "SISA" , "ISBM" , "MAPFRE" , "ACSA" , "Seguros del pacifico" , "Seguros azul" , "ASA"};
     ArrayList<String> ListaDR = new ArrayList<>();
     ArrayList<String> ListaEF = new ArrayList<>();
-    ArrayList<String> ListaIDoc = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -57,6 +56,7 @@ public class IngresarPaciente extends AppCompatActivity
         ConexionSqlLite objConexion = new ConexionSqlLite(getApplicationContext());
         final SQLiteDatabase objBase = objConexion.getWritableDatabase();
         Consultas();
+        CargarHab();
         CargarSpiners();
 
         Aseguradora.setAdapter(new ArrayAdapter<>(IngresarPaciente.this , android.R.layout.simple_expandable_list_item_1 , NombresAseg));
@@ -101,6 +101,7 @@ public class IngresarPaciente extends AppCompatActivity
                     Toast.makeText(getApplicationContext(), "Paciente ingresado correctamente!" , Toast.LENGTH_SHORT).show();
 
                     Borrar();
+                    CargarHab();
                 }
                 else
                 {
@@ -164,16 +165,6 @@ public class IngresarPaciente extends AppCompatActivity
         ConexionSqlLite objConexion = new ConexionSqlLite(getApplicationContext());
         SQLiteDatabase objBase2 = objConexion.getWritableDatabase();
 
-        String ConsultarHab = "select camasDisponibles from Habitaciones";
-        Cursor Datos = objBase2.rawQuery(ConsultarHab, null);
-
-        if(Datos.moveToNext())
-        {
-            HabDisponibles = Datos.getInt(0);
-        }
-
-        Habitaciones.setText("Habitaciones disponibles: " +HabDisponibles);
-
         String ConsultarDocs = "select * from usuarios where rol = 1";
         Cursor Datos3 = objBase2.rawQuery(ConsultarDocs , null);
 
@@ -189,6 +180,22 @@ public class IngresarPaciente extends AppCompatActivity
         {
             ListaEF.add(Datos2.getString(0) +" -Srta. " +Datos2.getString(1) +" " +Datos2.getString(2));
         }
+    }
+
+    public void CargarHab()
+    {
+        ConexionSqlLite objConexion = new ConexionSqlLite(getApplicationContext());
+        SQLiteDatabase objBase2 = objConexion.getWritableDatabase();
+
+        String ConsultarHab = "select camasDisponibles from Habitaciones";
+        Cursor Datos = objBase2.rawQuery(ConsultarHab, null);
+
+        if(Datos.moveToNext())
+        {
+            HabDisponibles = Datos.getInt(0);
+        }
+
+        Habitaciones.setText("Habitaciones disponibles: " +HabDisponibles);
     }
 
     public void Borrar()
