@@ -26,7 +26,7 @@ public class IngresarPaciente extends AppCompatActivity
     private Button IngrPaciente;
     private TextView Habitaciones;
     private int HabDisponibles, IDPaci;
-    private String SelecAseguradora, SelectEnferm, SelectMed, IDoc, IDenf;
+    private String SelecAseguradora, SelectEnferm, SelectMed, IDSepEn, IDSepDr;
     private EditText NombrePaciente, ApellidoPacient, DUI, Edad, Telefono, Responsable, DUIRes, TelefonoRes, MotivoConsulta;
     String[] NombresAseg = {"ASESUISA" , "SISA" , "ISBM" , "MAPFRE" , "ACSA" , "Seguros del pacifico" , "Seguros azul" , "ASA"};
     ArrayList<String> ListaDR = new ArrayList<>();
@@ -68,11 +68,18 @@ public class IngresarPaciente extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                if(!Validar())
+                if(Validar())
                 {
+                    String[] IDEnfermera = SelectEnferm.split(" ");
+                    IDSepEn = IDEnfermera[0];
+                    String[] IDDoctor = SelectMed.split(" ");
+                    IDSepDr = IDDoctor[0];
+                    int IDr = Integer.parseInt(IDSepDr);
+                    int IEn = Integer.parseInt(IDSepEn);
+
                     String IngresarPaciente = "insert into paciente (nombres,apellidos,duiPaciente,edad,telefono,aseguradora,idHabitacion,usaCama,duiResponsable,telefonoResponsable ) values " +
                             "('" +NombrePaciente.getText().toString() + "','" + ApellidoPacient.getText().toString() + "','" + DUI.getText().toString() + "' ,'" + Edad.getText().toString() + "','" + Telefono.getText().toString() + "','"+SelecAseguradora+"', 1, 1,'"+Responsable.getText().toString()+"','"+TelefonoRes.getText().toString()+"')";
-                    //objBase.execSQL(IngresarPaciente);
+                    objBase.execSQL(IngresarPaciente);
 
                     String ConsultarIdPaci = "select idPaciente from paciente where duiPaciente = '"+DUI.getText().toString()+"'" ;
                     Cursor IDPaciente = objBase.rawQuery(ConsultarIdPaci, null);
@@ -82,12 +89,16 @@ public class IngresarPaciente extends AppCompatActivity
                         IDPaci = IDPaciente.getInt(0);
                     }
 
-                    ///Falta obtener los IDs de la seleccion de los spinners...
+                    String GuardarExpediente = "insert into expedientes (idPaciente,idEnfermera,idDoctor,resumenClinico) values " +
+                            "('" +IDPaci + "','" +IEn + "' ,'" +IDr+ "', '"+MotivoConsulta.getText().toString()+"')";
+                    objBase.execSQL(GuardarExpediente);
 
-                    /*String GuardarExpediente = "insert into expedientes (idPaciente,idEnfermera,idDoctor,resumenClinico,) values " +
-                            "('" + IDPaciente + "','" + expediente.getIdEnfermera() + "' ,'" + expediente.getIdDoctor() + "', '"+MotivoConsulta.getText().toString()+"')";
-                            objBase.execSQL(GuardarExpediente);*/
-                    Toast.makeText(getApplicationContext(), "Doctor seleccionado: " +IDPaci, Toast.LENGTH_SHORT).show();
+                    int TotalHab = HabDisponibles - 1;
+
+                    String UpdateHab = "update habitaciones set  camasDisponibles = '"+TotalHab+"'";
+                    objBase.execSQL(UpdateHab);
+
+                    Toast.makeText(getApplicationContext(), "Paciente ingresado correctamente!" +IDSepDr  , Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
@@ -117,11 +128,6 @@ public class IngresarPaciente extends AppCompatActivity
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
             {
                 SelectMed = MedicosSpin.getSelectedItem().toString();
-
-                if(ListaDR.contains(SelectMed))
-                {
-
-                }
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) { }
@@ -156,13 +162,14 @@ public class IngresarPaciente extends AppCompatActivity
         ConexionSqlLite objConexion = new ConexionSqlLite(getApplicationContext());
         SQLiteDatabase objBase2 = objConexion.getWritableDatabase();
 
-        String ConsultarHab = "Select * FROM habitaciones";
+        String ConsultarHab = "select camasDisponibles from Habitaciones";
         Cursor Datos = objBase2.rawQuery(ConsultarHab, null);
 
         if(Datos.moveToNext())
         {
-            HabDisponibles = Datos.getInt(2);
+            HabDisponibles = Datos.getInt(0);
         }
+
         Habitaciones.setText("Habitaciones disponibles: " +HabDisponibles);
 
         String ConsultarDocs = "select * from usuarios where rol = 1";
@@ -170,7 +177,7 @@ public class IngresarPaciente extends AppCompatActivity
 
         while(Datos3.moveToNext())
         {
-            ListaDR.add("Dr. " +Datos3.getString(1)  +Datos3.getString(2)  +" ID: " +Datos3.getString(0));
+            ListaDR.add(Datos3.getString(0) +" -Dr. " +Datos3.getString(1)  +Datos3.getString(2));
         }
 
         String ConsultarEnf = "Select * from usuarios where rol = 2";
@@ -178,7 +185,7 @@ public class IngresarPaciente extends AppCompatActivity
 
         while(Datos2.moveToNext())
         {
-            ListaEF.add("Srta. " +Datos2.getString(1) +" " +Datos2.getString(2));
+            ListaEF.add(Datos2.getString(0) +" -Srta. " +Datos2.getString(1) +" " +Datos2.getString(2));
         }
     }
 }
