@@ -24,6 +24,7 @@ public class PersonalMedico extends AppCompatActivity implements RecyclerViewInt
     private TextView DocsDisponibles;
     private EditText BuscarText;
     private Button BuscarMed;
+    private List<csUsuariosID> DoctoresB = new ArrayList<>();
     private List<csUsuariosID> Doctores = new ArrayList<>();
 
     @Override
@@ -78,7 +79,6 @@ public class PersonalMedico extends AppCompatActivity implements RecyclerViewInt
 
         String sql="select * from usuarios where nombres || ' ' || apellidos = '"+BuscarText.getText().toString()+"'";
         Cursor Consulta = objBase.rawQuery(sql, null);
-        List<csUsuariosID> DoctoresB = new ArrayList<>();
 
         while(Consulta.moveToNext())
         {
@@ -115,14 +115,29 @@ public class PersonalMedico extends AppCompatActivity implements RecyclerViewInt
     public void OnItemClick(int position)
     {
         Intent SelectMed = new Intent(getApplicationContext(), SeleccionarMedico.class);
-        SelectMed.putExtra("DoctorSelecionado" , Doctores.get(position).getNombres() +" " +Doctores.get(position).getApellidos());
-        SelectMed.putExtra("Correo", Doctores.get(position).getEmail());
-        SelectMed.putExtra("Telefono" , Doctores.get(position).getTelefono());
-        SelectMed.putExtra("JVPM", Doctores.get(position).getJvmp());
-        SelectMed.putExtra("Edad", Doctores.get(position).getEdad());
-        SelectMed.putExtra("Rol" , Doctores.get(position).getRol());
-        SelectMed.putExtra("IDdoctor", Doctores.get(position).getIdUsuario());
-        startActivity(SelectMed);
+
+        if(BuscarText.getText().toString().isEmpty())
+        {
+            SelectMed.putExtra("DoctorSelecionado" , Doctores.get(position).getNombres() +" " +Doctores.get(position).getApellidos());
+            SelectMed.putExtra("Correo", Doctores.get(position).getEmail());
+            SelectMed.putExtra("Telefono" , Doctores.get(position).getTelefono());
+            SelectMed.putExtra("JVPM", Doctores.get(position).getJvmp());
+            SelectMed.putExtra("Edad", Doctores.get(position).getEdad());
+            SelectMed.putExtra("Rol" , Doctores.get(position).getRol());
+            SelectMed.putExtra("IDdoctor", Doctores.get(position).getIdUsuario());
+            startActivity(SelectMed);
+        }
+        else
+        {
+            SelectMed.putExtra("DoctorSelecionado" , DoctoresB.get(position).getNombres() +" " +Doctores.get(position).getApellidos());
+            SelectMed.putExtra("Correo", DoctoresB.get(position).getEmail());
+            SelectMed.putExtra("Telefono" , DoctoresB.get(position).getTelefono());
+            SelectMed.putExtra("JVPM", DoctoresB.get(position).getJvmp());
+            SelectMed.putExtra("Edad", DoctoresB.get(position).getEdad());
+            SelectMed.putExtra("Rol" , DoctoresB.get(position).getRol());
+            SelectMed.putExtra("IDdoctor", DoctoresB.get(position).getIdUsuario());
+            startActivity(SelectMed);
+        }
     }
 
     @Override
