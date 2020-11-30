@@ -98,7 +98,9 @@ public class IngresarPaciente extends AppCompatActivity
                     String UpdateHab = "update habitaciones set  camasDisponibles = '"+TotalHab+"'";
                     objBase.execSQL(UpdateHab);
 
-                    Toast.makeText(getApplicationContext(), "Paciente ingresado correctamente!" +IDSepDr  , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Paciente ingresado correctamente!" , Toast.LENGTH_SHORT).show();
+
+                    Borrar();
                 }
                 else
                 {
@@ -187,5 +189,18 @@ public class IngresarPaciente extends AppCompatActivity
         {
             ListaEF.add(Datos2.getString(0) +" -Srta. " +Datos2.getString(1) +" " +Datos2.getString(2));
         }
+    }
+
+    public void Borrar()
+    {
+        NombrePaciente.setText("");
+        ApellidoPacient.setText("");
+        DUI.setText("");
+        Edad.setText("");
+        Telefono.setText("");
+        Responsable.setText("");
+        DUIRes.setText("");
+        TelefonoRes.setText("");
+        MotivoConsulta.setText("");
     }
 }

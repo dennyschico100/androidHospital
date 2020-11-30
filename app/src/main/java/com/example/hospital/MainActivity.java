@@ -23,19 +23,32 @@ import datos.ConexionSqlLite;
 public class MainActivity extends AppCompatActivity {
 
 //RAMA RICARDO
-    private Button btnMostrar;
+    private Button btnMostrar, Test;
     private TextView tvIntegrantes;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ConexionSqlLite objConexion = new ConexionSqlLite(getApplicationContext());
         SQLiteDatabase objBase = objConexion.getWritableDatabase();
+        Test = findViewById(R.id.Test);
+
+        Test.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Intent Open = new Intent(getApplicationContext(), PersonalMedico.class);
+                startActivity(Open);
+            }
+        });
 
         Usuarios usuarioDoctor;
         Usuarios usuarioEnfermera;
         Usuarios usuarioAdmin;
+
 
         Habitaciones habitacion;
         Paciente paciente;
