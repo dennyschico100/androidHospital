@@ -16,7 +16,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,19 +24,20 @@ import datos.ConexionSqlLite;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btnMostrar, btnIniciar,btnRegistrar;
+    private Button btnMostrar, btnIniciar, btnRegistrar;
     private TextView tvIntegrantes, tvemailError, tvpasswordError;
     private EditText edtUsuario, edtPassword;
 
-    private static final String COLUMN_USER_ID = "idUsuario";
+    int tipoRegistro = 0;
+    /*private static final String COLUMN_USER_ID = "idUsuario";
     private static final String COLUMN_USER_NOMBRE = "nombres";
     private static final String COLUMN_USER_EMAIL = "email";
-    private static final String COLUMN_USER_PASSWORD = "password";
+    private static final String COLUMN_USER_PASSWORD = "password";*/
 
     ConexionSqlLite objConexion;
     SQLiteDatabase objBase;
     Usuarios usuarioSession;
-
+    Intent intent;
     AlertDialog.Builder builder;
 
     @Override
@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         tvemailError.setVisibility(View.INVISIBLE);
         tvpasswordError.setVisibility(View.INVISIBLE);
         btnRegistrar = findViewById(R.id.btnRegistrar);
+        intent = new Intent(getApplicationContext(), Registro.class);
 
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,16 +71,24 @@ public class MainActivity extends AppCompatActivity {
                         .setPositiveButton("Administrativo", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
 
-                                Toast.makeText(getApplicationContext(),"you choose yes action for alertbox",
-                                        Toast.LENGTH_SHORT).show();
+                                tipoRegistro = 1;
+                                intent.putExtra("tipoRegistro", tipoRegistro);
+
+                                finish();
+                                startActivity(intent);
                             }
                         })
                         .setNegativeButton("Doctor/Enfermera", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
+                                tipoRegistro = 2;
                                 //  Action for 'NO' Button
+                                intent.putExtra("tipoRegistro", tipoRegistro);
 
-                                Toast.makeText(getApplicationContext(),"you choose no action for alertbox",
-                                        Toast.LENGTH_SHORT).show();
+
+                                finish();
+                                startActivity(intent);
+
+
                             }
                         });
                 //Creating dialog box
@@ -91,8 +100,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-
 
 
         //Boton de prueba , para mostrar los registros quemados
@@ -123,20 +130,21 @@ public class MainActivity extends AppCompatActivity {
         String usuario = "";
         usuario = edtUsuario.getText().toString();
         pass = edtPassword.getText().toString();
-        String[] columns = {
+        /*String[] columns = {
                 COLUMN_USER_EMAIL,
                 COLUMN_USER_PASSWORD
-        };
+        };*/
 
         String TABLE_USER = "SELECT *FROM usuarios where email=? and password=? ";
-        String selection = COLUMN_USER_EMAIL + " = ?" + " AND " + COLUMN_USER_PASSWORD + " = ?";
+        //String selection = COLUMN_USER_EMAIL + " = ?" + " AND " + COLUMN_USER_PASSWORD + " = ?";
+
         String[] selectionArgs = {usuario, pass};
 
         if (edtUsuario.getText().length() == 0 || edtUsuario.getText().length() <= 4) {
             tvemailError.setVisibility(View.VISIBLE);
-        } else if (edtUsuario.getText().length() ==  0 || edtUsuario.getText().length() <=4 ) {
+        } else if (edtUsuario.getText().length() == 0 || edtUsuario.getText().length() <= 4) {
             tvpasswordError.setText("ingresa una contraseña con almenos 4 caracteres");
-        }else{
+        } else {
             Cursor datos = objBase.rawQuery(TABLE_USER, //Table to query
                     selectionArgs             //The values for the WHERE clause
             );
@@ -145,9 +153,7 @@ public class MainActivity extends AppCompatActivity {
             if (cursorCount > 0) {
 
                 Log.i("RESULTADO", "EXISTE USUARIO");
-                Intent i=new Intent(this, PaginaPrincipal_I.class);
-
-                while (datos.moveToNext()){
+                while (datos.moveToNext()) {
                     usuarioSession = new Usuarios();
 
                     usuarioSession.setIdUsuario(datos.getInt(datos.getColumnIndex("idUsuario")));
@@ -158,24 +164,17 @@ public class MainActivity extends AppCompatActivity {
                     usuarioSession.setPreguntaSeguridad(datos.getString(datos.getColumnIndex("preguntaSeguridad")));
                     usuarioSession.setEdad(datos.getInt(datos.getColumnIndex("edad")));
                     usuarioSession.setJvmp(datos.getInt(datos.getColumnIndex("jvmp")));
-                    usuarioSession.setRol(datos.getInt(datos.getColumnIndex("rol")));
                     usuarioSession.setEmail(datos.getString(datos.getColumnIndex("email")));
                     usuarioSession.setTelefono(datos.getInt(datos.getColumnIndex("telefono")));
-                    Log.i("usuario",""+usuarioSession.toString());
+                    Log.i("usuario", "" + usuarioSession.toString());
                 }
-                i.putExtra("id",usuarioSession.getIdUsuario());
-                i.putExtra("rol",usuarioSession.getRol());
-                startActivity(i);
-                finish();
+
             } else {
 
                 Log.i("RESULTADO NO EXISTE", "CREDENCIALES INCORRECTAS");
             }
 
         }
-
-
-
 
 
     }
@@ -296,11 +295,19 @@ public class MainActivity extends AppCompatActivity {
         Log.i("Query2 : ", guardarEnfermera);
         Log.i("Query3: ", guardarAdmin);
 
+        objBase.execSQL(guardarDoctor);
+        objBase.execSQL(guardarEnfermera);
+        objBase.execSQL(guardarAdmin);
 
+        objBase.execSQL(guardarHabitacion);
+        objBase.execSQL(guardarPaciente);
+        objBase.execSQL(guardarExpediente);
 
 
         Log.i("Mensaje Insert :", "USUARIOS INSERTADOS EN LA TABLA ");
+        mostrarRegistrosUsuarios();
     }
+
 
     public void mostrarRegistrosUsuarios() {
         List<Usuarios> lista = new ArrayList<Usuarios>();
@@ -332,7 +339,7 @@ public class MainActivity extends AppCompatActivity {
         for (Usuarios u : lista) {
 
 
-            Log.i("Datos", u.getIdUsuario() + " and " + u.getPassword());
+            Log.i("Datos", u.getNombres() + " and " + u.getPassword());
 
         }
 
