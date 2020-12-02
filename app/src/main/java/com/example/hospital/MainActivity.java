@@ -153,6 +153,8 @@ public class MainActivity extends AppCompatActivity {
             if (cursorCount > 0) {
 
                 Log.i("RESULTADO", "EXISTE USUARIO");
+                
+                Intent i=new Intent(this, PaginaPrincipal_I.class);
                 while (datos.moveToNext()) {
                     usuarioSession = new Usuarios();
 
@@ -168,6 +170,10 @@ public class MainActivity extends AppCompatActivity {
                     usuarioSession.setTelefono(datos.getInt(datos.getColumnIndex("telefono")));
                     Log.i("usuario", "" + usuarioSession.toString());
                 }
+                 i.putExtra("id",usuarioSession.getIdUsuario());
+                i.putExtra("rol",usuarioSession.getRol());
+                startActivity(i);
+                finish();
 
             } else {
 
